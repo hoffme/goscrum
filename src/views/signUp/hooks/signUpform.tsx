@@ -1,10 +1,32 @@
 import {useState} from "react";
-import {FormikErrors, useFormik} from "formik";
+import {useFormik} from "formik";
 import { v4 as uuidV4 } from 'uuid';
+import * as Yup from "yup";
 
 import {SignUpParams} from "../../../services/auth";
 
 import useAuth from "../../../hooks/auth";
+
+const validationSchema = Yup.object().shape({
+    username: Yup.string()
+        .min(1, 'nombre de usuario demasiado corto')
+        .required('Este campo es requerido'),
+    password: Yup.string()
+        .min(4, 'contrase;a demasiado corta')
+        .required('Este campo es requerido'),
+    email: Yup.string()
+        .email('tipo invalido')
+        .required('Este campo es requerido'),
+    teamID: Yup.string()
+        .min(1, 'id del equipo demasiado corto')
+        .required('Este campo es requerido'),
+    role: Yup.string()
+        .required('Este campo es requerido'),
+    continent: Yup.string()
+        .required('Este campo es requerido'),
+    region: Yup.string()
+        .required('Este campo es requerido'),
+});
 
 const useSignUpForm = () => {
     const { signUp } = useAuth();
@@ -22,19 +44,6 @@ const useSignUpForm = () => {
         region: ''
     };
 
-    const validate = (value: SignUpParams) => {
-        const errors: FormikErrors<SignUpParams> = {};
-
-        if (!value.username || value.username.length === 0) {
-            errors.username = 'El email es requerido';
-        }
-        if (!value.password || value.password.length === 0) {
-            errors.password = 'El password es requerido';
-        }
-
-        return errors;
-    }
-
     const onSubmit = async (values: SignUpParams) => {
         setGeneralError(undefined);
 
@@ -44,7 +53,7 @@ const useSignUpForm = () => {
 
     const formik = useFormik<SignUpParams>({
         initialValues,
-        validate,
+        validationSchema,
         onSubmit
     });
 

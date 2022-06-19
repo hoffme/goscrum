@@ -1,32 +1,37 @@
 import {useState} from "react";
-import {FormikErrors, useFormik} from "formik";
+import {useFormik} from "formik";
 import {useSelector} from "react-redux";
+import * as Yup from "yup";
 
 import {fetchTasks, selectFilterType} from "../../../redux/features/tasks";
 import useAppDispatch from "../../../redux/hooks/dispatch";
 
 import TaskService, {TaskFields} from "../../../services/task";
 
+const initialValues: TaskFields = {
+    title: '',
+    importance: '',
+    status: '',
+    description: ''
+};
+
+const validationSchema = Yup.object().shape({
+    title: Yup.string()
+        .min(1, 'nombre de usuario demasiado corto')
+        .required('Este campo es requerido'),
+    importance: Yup.string()
+        .required('Este campo es requerido'),
+    status: Yup.string()
+        .required('Este campo es requerido'),
+    description: Yup.string()
+        .required('Este campo es requerido'),
+});
+
 const useCreateTaskForm = () => {
     const [generalError, setGeneralError] = useState<string | undefined>(undefined);
     const filterType = useSelector(selectFilterType);
 
     const dispatch = useAppDispatch();
-
-    const initialValues: TaskFields = {
-        title: '',
-        importance: '',
-        status: '',
-        description: ''
-    };
-
-    const validate = (value: TaskFields) => {
-        const errors: FormikErrors<TaskFields> = {};
-
-        if (!value.title) errors.title = 'El titulo no puede estar vacio';
-
-        return errors;
-    }
 
     const onSubmit = async (values: TaskFields) => {
         setGeneralError(undefined);
@@ -43,7 +48,7 @@ const useCreateTaskForm = () => {
 
     const formik = useFormik<TaskFields>({
         initialValues,
-        validate,
+        validationSchema,
         onSubmit
     });
 

@@ -1,31 +1,28 @@
-import {FormikErrors, useFormik} from "formik";
+import {useState} from "react";
+import {useFormik} from "formik";
+import * as Yup from 'yup';
 
 import {SignInParams} from "../../../services/auth";
 
 import useAuth from "../../../hooks/auth";
-import {useState} from "react";
 
 const initialValues: SignInParams = {
     username: '',
     password: ''
 };
 
+const validationSchema = Yup.object().shape({
+    username: Yup.string()
+        .min(1, 'nombre de usuario demasiado corto')
+        .required('Este campo es requerido'),
+    password: Yup.string()
+        .min(4, 'contrase;a demasiado corta')
+        .required('Este campo es requerido'),
+});
+
 const useSignInForm = () => {
     const [generalError, setGeneralError] = useState<string | undefined>(undefined);
     const { signIn } = useAuth();
-
-    const validate = (value: SignInParams) => {
-        const errors: FormikErrors<SignInParams> = {};
-
-        if (!value.username || value.username.length === 0) {
-            errors.username = 'El email es requerido';
-        }
-        if (!value.password || value.password.length === 0) {
-            errors.password = 'El password es requerido';
-        }
-
-        return errors;
-    }
 
     const onSubmit = async (values: SignInParams) => {
         setGeneralError(undefined);
@@ -36,7 +33,7 @@ const useSignInForm = () => {
 
     const formik = useFormik<SignInParams>({
         initialValues,
-        validate,
+        validationSchema,
         onSubmit
     });
 

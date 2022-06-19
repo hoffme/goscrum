@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 const ContainerPrimaryButtonStyle = styled.button`
-  width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   background-color: #ff452b;
   color: white;
   border: none;
@@ -15,8 +14,7 @@ const ContainerPrimaryButtonStyle = styled.button`
 `;
 
 const ContainerSecondaryButtonStyle = styled.button`
-  width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   background-color: white;
   color: #212121;
   border: 1px solid #666;

@@ -6,7 +6,7 @@ import type {
     FetchCreateTaskRequestBody,
     FetchUpdateTaskRequestBody,
     FetchCreateTaskResponseBody,
-    FetchTaskDataResponseBody,
+    FetchTaskDataResponseBody, TaskUpdateParams,
 } from './types';
 
 class TaskService extends APIService {
@@ -72,11 +72,18 @@ class TaskService extends APIService {
         return response.result.task;
     }
 
-    public static async Update(id: string, fields: TaskFields): Promise<void> {
+    public static async Update(params: TaskUpdateParams): Promise<void> {
         const response = await this.FetchJSON<FetchUpdateTaskRequestBody, void>({
-            uri: `/task/${id}`,
+            uri: `/task/${params.id}`,
             method: 'PATCH',
-            body: { task: fields }
+            body: {
+                task: {
+                    title: params.title,
+                    importance: params.importance,
+                    status: params.status,
+                    description: params.description
+                }
+            }
         });
 
         if (response.message !== 'tarea modificada') throw new Error(response.message);

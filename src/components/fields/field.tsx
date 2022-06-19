@@ -5,11 +5,12 @@ import { ContainerFieldStyle } from "./style";
 interface Props {
     title?: string
     error?: string
+    className?: string
     children?: ReactNode
 }
 
 const Field = (props: Props) => {
-    return <ContainerFieldStyle>
+    return <ContainerFieldStyle className={props.className}>
         { props.title &&
             <label className={'title'}>{ props.title }</label>
         }

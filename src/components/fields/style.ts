@@ -59,6 +59,19 @@ const InputFieldStyle = styled.input`
   }
 `;
 
+const TextAreaFieldStyle = styled.textarea`
+  border: 1px solid ${colors.input.border};
+  color: ${colors.input.text};
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  outline: none;
+  font-size: 1em;
+
+  &:focus {
+    border-color: ${colors.input.borderFocus};
+  }
+`;
+
 const SelectFieldStyle = styled.select`
   border: 1px solid ${colors.input.border};
   color: ${colors.input.text};
@@ -66,6 +79,7 @@ const SelectFieldStyle = styled.select`
   padding: 0.5rem;
   outline: none;
   font-size: 1em;
+  -webkit-appearance:none;
 
   &:focus {
     border-color: ${colors.input.borderFocus};
@@ -116,5 +130,6 @@ export {
     InputFieldStyle,
     SelectFieldStyle,
     ContainerSwitchFieldStyle,
-    SwitchFieldStyle
+    SwitchFieldStyle,
+    TextAreaFieldStyle
 }

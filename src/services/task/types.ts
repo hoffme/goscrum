@@ -27,6 +27,14 @@ interface TaskFields {
     description: string
 }
 
+interface TaskUpdateParams {
+    id: string
+    title: string
+    importance: string
+    status: string
+    description: string
+}
+
 interface FetchCreateTaskRequestBody {
     task: TaskFields
 }
@@ -55,6 +63,7 @@ export type {
     Task,
     TaskFields,
     TaskData,
+    TaskUpdateParams,
     FetchCreateTaskRequestBody,
     FetchUpdateTaskRequestBody,
     FetchCreateTaskResponseBody,

@@ -5,6 +5,7 @@ import {SelectFieldStyle} from "./style";
 import Field from "./field";
 
 interface Props {
+    className?: string
     title?: string
     error?: string
     name?: string
@@ -22,6 +23,7 @@ const SelectField = (props: Props) => {
     }
 
     return <Field
+        className={props.className}
         title={props.title}
         error={props.error}
     >

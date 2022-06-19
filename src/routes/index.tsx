@@ -1,27 +1,24 @@
 import { Routes, Route } from "react-router-dom";
 
-import { DashboardPage, NotFoundPage, SignInPage, SignUpPage} from "../pages";
+import { TasksPage, NotFoundPage, SignInPage, SignUpPage} from "../views/pages";
 
 import AuthRoute from "./auth";
 
 const AppRoutes = () => {
     return <Routes>
         <Route
-            path={'/dashboard'}
-            element={<AuthRoute page={<DashboardPage />} redirect={'/sign_in'} />}
+            path={'/tasks'}
+            element={<AuthRoute page={<TasksPage />} redirect={'/'} />}
         />
         <Route
-            path={'/sign_in'}
-            element={<AuthRoute reverse page={<SignInPage />} redirect={'/dashboard'} />}
+            path={'/'}
+            element={<AuthRoute notLogged page={<SignInPage />} redirect={'/tasks'} />}
         />
         <Route
-            path={'/sign_up'}
-            element={<AuthRoute reverse page={<SignUpPage />} redirect={'/dashboard'} />}
+            path={'/register'}
+            element={<AuthRoute notLogged page={<SignUpPage />} redirect={'/tasks'} />}
         />
-        <Route
-            path={'*'}
-            element={<NotFoundPage />}
-        />
+        <Route path={'*'} element={<NotFoundPage />} />
     </Routes>
 }
 

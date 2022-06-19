@@ -1,5 +1,6 @@
 import {ReactNode, useState} from "react";
 
+import Service from "../../services/service";
 import AuthService from "../../services/auth";
 
 import AuthContext, { SignInParams, SignUpParams, User } from "./context";
@@ -18,18 +19,18 @@ const AuthProvider = (props: Props) => {
             password: params.password
         });
 
-        AuthService.setToken(result.token);
+        Service.setToken(result.token);
         setCredentials(result.user);
     }
 
     const signIn = async (params: SignInParams) => {
         const result = await AuthService.SignIn(params);
-        AuthService.setToken(result.token);
+        Service.setToken(result.token);
         setCredentials(result.user);
     }
 
     const signOut = async () => {
-        AuthService.setToken(undefined);
+        Service.setToken(undefined);
         setCredentials(undefined);
     }
 

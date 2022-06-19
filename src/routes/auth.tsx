@@ -5,7 +5,7 @@ import useAuth from "../hooks/auth";
 
 interface Props {
     page: ReactNode
-    reverse?: boolean
+    notLogged?: boolean
     redirect?: string
 }
 
@@ -13,7 +13,7 @@ const AuthRoute = (props: Props) => {
     const navigate = useNavigate();
     const { logged } = useAuth();
 
-    const access = props.reverse ? !logged : logged;
+    const access = props.notLogged ? !logged : logged;
 
     useEffect(() => {
         if (!access && props.redirect) navigate(props.redirect);

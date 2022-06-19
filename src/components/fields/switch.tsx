@@ -5,6 +5,7 @@ import {ContainerSwitchFieldStyle, SwitchFieldStyle} from "./style";
 import Field from "./field";
 
 interface Props {
+    className?: string
     title?: string
     error?: string
     placeholder?: string
@@ -26,7 +27,7 @@ const SwitchField = (props: Props) => {
         if (props.value !== undefined) setSelected(props.value);
     }, [props.value])
 
-    return <Field title={props.title} error={props.error} >
+    return <Field title={props.title} error={props.error} className={props.className}>
         <ContainerSwitchFieldStyle>
             <label>{ props.placeholder }</label>
             <SwitchFieldStyle

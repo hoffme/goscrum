@@ -28,7 +28,7 @@ abstract class APIService {
         }
 
         const headers: any = { 'Content-Type': 'application/json' };
-        if (this.token) headers.Authorization = this.token;
+        if (this.token) headers.Authorization = 'Bearer ' + this.token;
 
         const method = props.method || 'GET';
 
